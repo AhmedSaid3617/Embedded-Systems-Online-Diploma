@@ -1,5 +1,5 @@
 # Embedded-Systems-Online-Diploma
 
-Edited README for the first time.
+All the assignments and projects I have done for the Learn-In-Depth Embedded Systems online diploma.
 
-Different edit.
+This repository is continuously updated.
