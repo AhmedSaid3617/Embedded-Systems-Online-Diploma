@@ -1,21 +1,23 @@
 CC = arm-none-eabi-
 CFLAGS = -mcpu=arm926ej-s
 INCS = -I .
+LIBS = 
+SRC = $(wildcard *.c)
+OBJ = $(SRC:.c=.o)
+As = $(wildcard *.s)
+AsOBJ = $(As:.s=.o)
 
 all: learn_in_depth.bin
 
 
-app.o: app.c
+%.o: %.c
 	$(CC)gcc $< -c $(INCS) -g -o $@ $(CFLAGS)
 
-uart.o: uart.c
-	$(CC)gcc $< -c $(INCS) -g -o $@ $(CFLAGS)
-
-startup.o: startup.s
+%.o: %.s
 	$(CC)as $< -o $@ $(CFLAGS)
 
-learn_in_depth.elf: startup.o app.o uart.o
-	$(CC)ld -T linker_script.ld startup.o app.o uart.o -o $@ -Map="map_file.map"
+learn_in_depth.elf: $(OBJ) $(AsOBJ)
+	$(CC)ld -T linker_script.ld $(AsOBJ) $(OBJ) -o $@ -Map="map_file.map"
 
 learn_in_depth.bin: learn_in_depth.elf
 	$(CC)objcopy -O binary $< $@
