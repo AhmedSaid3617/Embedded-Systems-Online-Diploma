@@ -15,7 +15,7 @@ startup.o: startup.s
 	$(CC)as $< -o $@ $(CFLAGS)
 
 learn_in_depth.elf: startup.o app.o uart.o
-	$(CC)ld -T linker_script.ld startup.o app.o uart.o -o $< -Map="map_file.map"
+	$(CC)ld -T linker_script.ld startup.o app.o uart.o -o $@ -Map="map_file.map"
 
 learn_in_depth.bin: learn_in_depth.elf
 	$(CC)objcopy -O binary $< $@
