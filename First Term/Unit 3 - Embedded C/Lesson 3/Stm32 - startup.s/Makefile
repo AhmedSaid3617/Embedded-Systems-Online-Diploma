@@ -1,5 +1,5 @@
 CC = arm-none-eabi-
-CFLAGS = -mcpu=arm926ej-s
+CFLAGS = -mcpu=cortex-m3 -gdwarf-2
 INCS = -I .
 LIBS = 
 SRC = $(wildcard *.c)
@@ -11,7 +11,7 @@ all: learn_in_depth.bin
 
 
 %.o: %.c
-	$(CC)gcc $< -c $(INCS) -g -o $@ $(CFLAGS)
+	$(CC)gcc $< -c $(INCS) -o $@ $(CFLAGS)
 
 %.o: %.s
 	$(CC)as $< -o $@ $(CFLAGS)
@@ -22,7 +22,7 @@ learn_in_depth.elf: $(OBJ) $(AsOBJ)
 learn_in_depth.bin: learn_in_depth.elf
 	$(CC)objcopy -O binary $< $@
 
-clean_all:
+clean:
 	rm *.elf 
 	rm *.bin
 	rm *.o
