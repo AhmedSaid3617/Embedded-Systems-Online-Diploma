@@ -44,6 +44,8 @@ typedef union{
 
 } Register_t;
 
+int x = 6;
+
 int main(void)
 {
 	RCC_APB2ENR |= RCC_IOPAEN;

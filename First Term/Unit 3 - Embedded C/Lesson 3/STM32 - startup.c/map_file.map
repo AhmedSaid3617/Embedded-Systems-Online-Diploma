@@ -11,68 +11,79 @@ sram             0x20000000         0x00005000         xrw
 Linker script and memory map
 
 
-.text           0x08000000       0xac
+.text           0x08000000      0x124
  *(.vectors*)
  .vectors       0x08000000       0x18 startup.o
                 0x08000000                vectors
  *(.text*)
  .text          0x08000018       0x7c Blinking_LED.o
                 0x08000018                main
- .text          0x08000094       0x18 startup.o
+ .text          0x08000094       0x90 startup.o
                 0x08000094                Reset_Handler
-                0x080000a0                MM_Fault_Handler
-                0x080000a0                Bus_Fault
-                0x080000a0                Default_Handler
-                0x080000a0                H_fault_Handler
-                0x080000a0                Usage_Fault_Handler
-                0x080000a0                NMI_Handler
+                0x08000118                MM_Fault_Handler
+                0x08000118                Bus_Fault
+                0x08000118                Default_Handler
+                0x08000118                H_fault_Handler
+                0x08000118                Usage_Fault_Handler
+                0x08000118                NMI_Handler
+ *(.rodata)
+                0x08000124                        _E_text = .
 
-.data           0x080000ac        0x0
- .data          0x080000ac        0x0 Blinking_LED.o
- .data          0x080000ac        0x0 startup.o
+.glue_7         0x08000124        0x0
+ .glue_7        0x08000124        0x0 linker stubs
 
-.igot.plt       0x080000ac        0x0
- .igot.plt      0x080000ac        0x0 startup.o
+.glue_7t        0x08000124        0x0
+ .glue_7t       0x08000124        0x0 linker stubs
 
-.glue_7         0x080000ac        0x0
- .glue_7        0x080000ac        0x0 linker stubs
+.vfp11_veneer   0x08000124        0x0
+ .vfp11_veneer  0x08000124        0x0 linker stubs
 
-.glue_7t        0x080000ac        0x0
- .glue_7t       0x080000ac        0x0 linker stubs
+.v4_bx          0x08000124        0x0
+ .v4_bx         0x08000124        0x0 linker stubs
 
-.vfp11_veneer   0x080000ac        0x0
- .vfp11_veneer  0x080000ac        0x0 linker stubs
+.iplt           0x08000124        0x0
+ .iplt          0x08000124        0x0 startup.o
 
-.v4_bx          0x080000ac        0x0
- .v4_bx         0x080000ac        0x0 linker stubs
+.rel.dyn        0x08000124        0x0
+ .rel.iplt      0x08000124        0x0 startup.o
 
-.iplt           0x080000ac        0x0
- .iplt          0x080000ac        0x0 startup.o
+.data           0x20000000        0x4 load address 0x08000124
+                0x20000000                        _S_DATA = .
+ *(.data)
+ .data          0x20000000        0x4 Blinking_LED.o
+                0x20000000                x
+ .data          0x20000004        0x0 startup.o
+                0x20000004                        _E_DATA = .
 
-.rel.dyn        0x080000ac        0x0
- .rel.iplt      0x080000ac        0x0 startup.o
+.igot.plt       0x20000004        0x0 load address 0x08000128
+ .igot.plt      0x20000004        0x0 startup.o
 
-.bss            0x20000000        0xc
+.bss            0x20000004      0x3e8 load address 0x08000128
+                0x20000004                        _S_bss = .
  *(.bss*)
- .bss           0x20000000        0xc Blinking_LED.o
-                0x20000000                myGlobal
- .bss           0x2000000c        0x0 startup.o
+ .bss           0x20000004        0x0 Blinking_LED.o
+ .bss           0x20000004        0x0 startup.o
+                0x20000004                        _E_bss = .
+                0x20000004                        . = ALIGN (0x4)
+                0x200003ec                        . = (. + 0x3e8)
+ *fill*         0x20000004      0x3e8 
+                0x200003ec                        _stack_top = .
 LOAD Blinking_LED.o
 LOAD startup.o
 OUTPUT(learn_in_depth.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000      0x251
- .debug_info    0x00000000      0x16e Blinking_LED.o
- .debug_info    0x0000016e       0xe3 startup.o
+.debug_info     0x00000000      0x2fe
+ .debug_info    0x00000000      0x15c Blinking_LED.o
+ .debug_info    0x0000015c      0x1a2 startup.o
 
-.debug_abbrev   0x00000000      0x1ba
- .debug_abbrev  0x00000000      0x115 Blinking_LED.o
- .debug_abbrev  0x00000115       0xa5 startup.o
+.debug_abbrev   0x00000000      0x1fc
+ .debug_abbrev  0x00000000      0x103 Blinking_LED.o
+ .debug_abbrev  0x00000103       0xf9 startup.o
 
-.debug_loc      0x00000000       0x90
+.debug_loc      0x00000000       0xb4
  .debug_loc     0x00000000       0x38 Blinking_LED.o
- .debug_loc     0x00000038       0x58 startup.o
+ .debug_loc     0x00000038       0x7c startup.o
 
 .debug_aranges  0x00000000       0x40
  .debug_aranges
@@ -80,14 +91,14 @@ LOAD linker stubs
  .debug_aranges
                 0x00000020       0x20 startup.o
 
-.debug_line     0x00000000      0x284
+.debug_line     0x00000000      0x2d3
  .debug_line    0x00000000      0x161 Blinking_LED.o
- .debug_line    0x00000161      0x123 startup.o
+ .debug_line    0x00000161      0x172 startup.o
 
-.debug_str      0x00000000      0x1a7
- .debug_str     0x00000000      0x1a7 Blinking_LED.o
-                                0x1be (size before relaxing)
- .debug_str     0x000001a7      0x1b2 startup.o
+.debug_str      0x00000000      0x1e7
+ .debug_str     0x00000000      0x1e7 Blinking_LED.o
+                                0x1b5 (size before relaxing)
+ .debug_str     0x000001e7      0x1fb startup.o
 
 .comment        0x00000000       0x44
  .comment       0x00000000       0x44 Blinking_LED.o
@@ -101,6 +112,6 @@ LOAD linker stubs
  .ARM.attributes
                 0x0000002d       0x2d startup.o
 
-.debug_frame    0x00000000       0x74
+.debug_frame    0x00000000       0x7c
  .debug_frame   0x00000000       0x2c Blinking_LED.o
- .debug_frame   0x0000002c       0x48 startup.o
+ .debug_frame   0x0000002c       0x50 startup.o
