@@ -11,9 +11,9 @@ int main(){
     while (1)
     {
         GPIOF_DATA_R |= 1<<3;
-        for (volatile int i = 0; i < 10000000; i++);
+        for (volatile int i = 0; i < 1000000; i++);
         GPIOF_DATA_R &= ~(1<<3);
-        for (volatile int i = 0; i < 10000000; i++);
+        for (volatile int i = 0; i < 1000000; i++);
     }
     
 }

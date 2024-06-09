@@ -5,6 +5,7 @@ MEMORY
 }
 
 SECTIONS
+
 {
     .text : {
         *(.vectors*)
@@ -16,6 +17,7 @@ SECTIONS
     .data : {
         _S_DATA = .;
         *(.data)
+        . = ALIGN(4);
         _E_DATA = .;
     }> sram AT> flash
 
@@ -23,9 +25,5 @@ SECTIONS
         _S_bss = .;
         *(.bss*)
         _E_bss = .;
-
-        . = ALIGN(4);
-        . = . + 1024;
-        _stack_top = .;
     } > sram
 }

@@ -52,6 +52,7 @@ Linker script and memory map
  *(.data)
  .data          0x40000000        0x0 main.o
  .data          0x40000000        0x0 startup.o
+                0x40000000                        . = ALIGN (0x4)
                 0x40000000                        _E_DATA = .
 
 .igot.plt       0x40000000        0x0 load address 0x00000134
@@ -61,24 +62,21 @@ Linker script and memory map
                 0x40000000                        _S_bss = .
  *(.bss*)
  .bss           0x40000000        0x0 main.o
- .bss           0x40000000        0x0 startup.o
-                0x40000000                        _E_bss = .
-                0x40000000                        . = ALIGN (0x4)
-                0x40000400                        . = (. + 0x400)
- *fill*         0x40000000      0x400 
-                0x40000400                        _stack_top = .
+ .bss           0x40000000      0x400 startup.o
+                0x40000000                stack
+                0x40000400                        _E_bss = .
 LOAD main.o
 LOAD startup.o
 OUTPUT(tiva_c_blink.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000      0x240
+.debug_info     0x00000000      0x262
  .debug_info    0x00000000       0x9e main.o
- .debug_info    0x0000009e      0x1a2 startup.o
+ .debug_info    0x0000009e      0x1c4 startup.o
 
-.debug_abbrev   0x00000000      0x160
+.debug_abbrev   0x00000000      0x16c
  .debug_abbrev  0x00000000       0x67 main.o
- .debug_abbrev  0x00000067       0xf9 startup.o
+ .debug_abbrev  0x00000067      0x105 startup.o
 
 .debug_loc      0x00000000       0xb4
  .debug_loc     0x00000000       0x38 main.o
@@ -90,14 +88,14 @@ LOAD linker stubs
  .debug_aranges
                 0x00000020       0x20 startup.o
 
-.debug_line     0x00000000      0x205
+.debug_line     0x00000000      0x203
  .debug_line    0x00000000       0x93 main.o
- .debug_line    0x00000093      0x172 startup.o
+ .debug_line    0x00000093      0x170 startup.o
 
-.debug_str      0x00000000      0x1bb
- .debug_str     0x00000000      0x1bb main.o
+.debug_str      0x00000000      0x1b6
+ .debug_str     0x00000000      0x1b6 main.o
                                  0xe7 (size before relaxing)
- .debug_str     0x000001bb      0x1f1 startup.o
+ .debug_str     0x000001b6      0x1ec startup.o
 
 .comment        0x00000000       0x44
  .comment       0x00000000       0x44 main.o
