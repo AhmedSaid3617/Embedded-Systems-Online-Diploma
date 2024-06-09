@@ -1,13 +1,14 @@
 CC = arm-none-eabi-
-CFLAGS = -mcpu=cortex-m3 -gdwarf-2
+CFLAGS = -mcpu=cortex-m4 -gdwarf-2 -g -O0
 INCS = -I .
 LIBS = 
 SRC = $(wildcard *.c)
 OBJ = $(SRC:.c=.o)
 As = $(wildcard *.s)
 AsOBJ = $(As:.s=.o)
+PROJECT_NAME = tiva_c_blink
 
-all: learn_in_depth.bin
+all: $(PROJECT_NAME).bin
 
 
 %.o: %.c
@@ -16,10 +17,11 @@ all: learn_in_depth.bin
 %.o: %.s
 	$(CC)as $< -o $@ $(CFLAGS)
 
-learn_in_depth.elf: $(OBJ) $(AsOBJ)
+$(PROJECT_NAME).elf: $(OBJ) $(AsOBJ)
 	$(CC)ld -T linker_script.ld $(AsOBJ) $(OBJ) -o $@ -Map="map_file.map"
+	cp $(PROJECT_NAME).elf $(PROJECT_NAME).axf
 
-learn_in_depth.bin: learn_in_depth.elf
+$(PROJECT_NAME).bin: $(PROJECT_NAME).elf
 	$(CC)objcopy -O binary $< $@
 
 clean:

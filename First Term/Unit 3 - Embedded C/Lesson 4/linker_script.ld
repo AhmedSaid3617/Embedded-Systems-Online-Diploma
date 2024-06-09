@@ -1,7 +1,7 @@
 MEMORY
 {
-    flash(RX) : o = 0x08000000, l = 128K
-    sram(RWX) : o = 0x20000000, l = 20K
+    flash(RX) : o = 0x00000000, l = 256K
+    sram(RWX) : o = 0x40000000, l = 32K
 }
 
 SECTIONS
@@ -25,7 +25,7 @@ SECTIONS
         _E_bss = .;
 
         . = ALIGN(4);
-        . = . + 1000;
+        . = . + 1024;
         _stack_top = .;
     } > sram
 }
