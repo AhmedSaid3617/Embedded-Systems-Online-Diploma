@@ -6,5 +6,8 @@
             "binaryPath": "e:\\Embedded Diploma\\Embedded Diploma Assignments\\Embedded-Systems-Online-Diploma\\First Term\\Unit 4 - Embedded Software Architecture\\Lesson 1 - Data Structures\\lifo-test.exe",
             "binaryArgs": []
         }
-    ]
+    ],
+    "files.associations": {
+        "lifo.h": "c"
+    }
 }

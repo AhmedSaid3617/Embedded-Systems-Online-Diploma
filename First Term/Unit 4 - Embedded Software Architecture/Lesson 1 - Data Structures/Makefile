@@ -7,7 +7,7 @@ vpath %.o $(OBJS_DIR)
 
 PROJECT_NAME = lifo-test
 CC = 
-CFLAGS = 
+CFLAGS = -g
 INCS = -I $(INC_DIR)
 LIBS = 
 SRC := $(wildcard $(SRC_DIR)/*.c)
