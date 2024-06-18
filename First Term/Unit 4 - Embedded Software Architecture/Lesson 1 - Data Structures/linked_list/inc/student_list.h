@@ -9,10 +9,24 @@ typedef struct
 
 } student_t;
 
-typedef struct 
+struct node_s
 {
-    student_t student;
-    node_t* next;
-} node_t;
+    student_t data;
+    struct node_s* next;
+};
 
+typedef enum {
+    DATA_NOT_FOUND,
+    DATA_DELETED
+} DATA_STATUS;
+
+typedef struct node_s node_t;
+
+void linked_list_append_item(student_t* data, node_t* node);
+
+void linked_list_display(node_t* node);
+
+DATA_STATUS linked_list_delete_item(int id, node_t* node);
+
+void linked_list_delete_all(node_t* node);
 #endif
