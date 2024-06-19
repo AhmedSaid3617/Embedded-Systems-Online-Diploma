@@ -5,6 +5,7 @@
 student_t student1;
 student_t student2;
 node_t first_node;
+node_t* head = &first_node;
 
 student_t student_input;
 int id_to_delete = -1;
@@ -26,8 +27,8 @@ int main(){
 
     first_node.data = student1;
 
-    linked_list_append_item(&student2, &first_node);
-    linked_list_display(&first_node);
+    linked_list_append_item(&student2, head);
+    linked_list_display(head);
 
     
 
@@ -49,12 +50,23 @@ void get_command(){
     {
     case 1:
         read_student(&student_input);
-        linked_list_append_item(&student_input, &first_node);
+        if (linked_list_append_item(&student_input, head) == DATA_EMPTY_LIST)
+        {
+            printf("List is empty\n");
+        }
+        else
+        {
+            printf("Added Successfully\n");
+        }
+        
         break;
 
     case 2:
         printf("===================\n");
-        linked_list_display(&first_node);
+        if (linked_list_display(head) == DATA_EMPTY_LIST)
+        {
+            printf("List is empty.\n");
+        }
         break;
 
     case 3:
@@ -62,7 +74,13 @@ void get_command(){
         break;
 
     case 4:
-        linked_list_delete_all(&first_node);
+        if (linked_list_delete_all(&head) == DATA_DELETED)
+        {
+            printf("Successfully deleted.\n");
+        }
+        else{
+            printf("List is empty\n");
+        }
         break;  
 
     case 5:
@@ -90,10 +108,15 @@ void read_student(student_t* student){
 void delete_student(){
     printf("Enter student id to delete: ");
     scanf("%d", &id_to_delete);
+    int status = linked_list_delete_item(id_to_delete, head);
 
-    if (linked_list_delete_item(id_to_delete, &first_node) == DATA_DELETED)
+    if (status == DATA_DELETED)
     {
         printf("Deleted successfully.\n");
+    }
+    else if (status == DATA_EMPTY_LIST)
+    {
+        printf("List is empty\n");
     }
     else
     {

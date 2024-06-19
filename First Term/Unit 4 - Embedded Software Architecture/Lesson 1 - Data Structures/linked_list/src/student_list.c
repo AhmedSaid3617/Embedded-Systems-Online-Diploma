@@ -3,8 +3,13 @@
 #include <stdlib.h>
 
 // Add this student to the end of the list.
-void linked_list_append_item(student_t *data, node_t *node)
+DATA_STATUS linked_list_append_item(student_t *data, node_t *node)
 {
+    if (node == NULL)
+    {
+        return DATA_EMPTY_LIST;
+    }
+    
 
     // Find the last node.
     while (node->next != NULL)
@@ -17,14 +22,16 @@ void linked_list_append_item(student_t *data, node_t *node)
     new_node->next = NULL;
 
     node->next = new_node;
+
+    return DATA_ADDED;
 }
 
-void linked_list_display(node_t *node)
+DATA_STATUS linked_list_display(node_t *node)
 {
 
-    if (node->data.id == 0)
+    if (node == NULL)
     {
-        printf("List is empty.\n");
+        return DATA_EMPTY_LIST;
     }
 
     else
@@ -38,7 +45,7 @@ void linked_list_display(node_t *node)
 
             if (node->next == NULL)
             {
-                break;
+                return DATA_SUCCESS;
             }
             else
             {
@@ -51,6 +58,12 @@ void linked_list_display(node_t *node)
 DATA_STATUS linked_list_delete_item(int id, node_t *node)
 {
     node_t *prev_node = NULL;
+
+    if (node == NULL)
+    {
+        return DATA_EMPTY_LIST;
+    }
+    
 
     if (node->data.id == id)
     {
@@ -76,17 +89,29 @@ DATA_STATUS linked_list_delete_item(int id, node_t *node)
     return DATA_NOT_FOUND;
 }
 
-void linked_list_delete_all(node_t *node)
+DATA_STATUS linked_list_delete_all(node_t **node)
 {
-    node_t *prev_node = node;
-    node = node->next;
-    prev_node->data.height = 0;
-    prev_node->data.id = 0;
 
-    while (node != NULL)
+    if (*node == NULL)
     {
-        prev_node = node;
-        node = node->next;
+        return DATA_EMPTY_LIST;
+    }
+    
+
+    node_t *head_node = *node;
+    node_t *prev_node = head_node;
+    
+    // Set the global head in main to NULL to make it an empty list.
+    *node = NULL;
+
+    head_node = head_node->next;
+
+    while (head_node != NULL)
+    {
+        prev_node = head_node;
+        head_node = head_node->next;
         free(prev_node);
     }
+
+    return DATA_DELETED;
 }

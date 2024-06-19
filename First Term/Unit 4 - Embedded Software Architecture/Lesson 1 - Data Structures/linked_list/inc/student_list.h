@@ -17,16 +17,21 @@ struct node_s
 
 typedef enum {
     DATA_NOT_FOUND,
-    DATA_DELETED
+    DATA_DELETED,
+    DATA_EMPTY_LIST,
+    DATA_ADDED,
+    DATA_SUCCESS
 } DATA_STATUS;
 
 typedef struct node_s node_t;
 
-void linked_list_append_item(student_t* data, node_t* node);
+DATA_STATUS linked_list_append_item(student_t* data, node_t* node);
 
-void linked_list_display(node_t* node);
+DATA_STATUS linked_list_display(node_t* node);
 
 DATA_STATUS linked_list_delete_item(int id, node_t* node);
 
-void linked_list_delete_all(node_t* node);
+DATA_STATUS linked_list_delete_all(node_t **node);
+
+
 #endif
