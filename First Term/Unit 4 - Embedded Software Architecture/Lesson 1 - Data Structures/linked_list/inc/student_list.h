@@ -18,20 +18,27 @@ struct node_s
 typedef enum {
     DATA_NOT_FOUND,
     DATA_DELETED,
-    DATA_EMPTY_LIST,
+    LIST_EMPTY,
     DATA_ADDED,
-    DATA_SUCCESS
-} DATA_STATUS;
+    DATA_SUCCESS,
+    INDEX_OUT_OF_BOUNDS
+} LIST_STATUS;
 
 typedef struct node_s node_t;
 
-DATA_STATUS linked_list_append_item(student_t* data, node_t* node);
+LIST_STATUS linked_list_append_item(student_t* data, node_t* node);
 
-DATA_STATUS linked_list_display(node_t* node);
+LIST_STATUS linked_list_display(node_t* node);
 
-DATA_STATUS linked_list_delete_item(int id, node_t* node);
+LIST_STATUS linked_list_delete_item(int id, node_t* node);
 
-DATA_STATUS linked_list_delete_all(node_t **node);
+LIST_STATUS linked_list_delete_all(node_t **node);
+
+LIST_STATUS linked_list_get_index(node_t* node, int index, student_t* dest);
+
+int linked_list_get_length(node_t* node);
+
+LIST_STATUS linked_list_get_n_reverse(node_t* node, int n, student_t* dest);
 
 
 #endif

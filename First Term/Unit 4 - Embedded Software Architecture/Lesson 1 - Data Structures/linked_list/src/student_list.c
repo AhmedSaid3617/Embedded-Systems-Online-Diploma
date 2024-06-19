@@ -3,11 +3,11 @@
 #include <stdlib.h>
 
 // Add this student to the end of the list.
-DATA_STATUS linked_list_append_item(student_t *data, node_t *node)
+LIST_STATUS linked_list_append_item(student_t *data, node_t *node)
 {
     if (node == NULL)
     {
-        return DATA_EMPTY_LIST;
+        return LIST_EMPTY;
     }
     
 
@@ -26,12 +26,12 @@ DATA_STATUS linked_list_append_item(student_t *data, node_t *node)
     return DATA_ADDED;
 }
 
-DATA_STATUS linked_list_display(node_t *node)
+LIST_STATUS linked_list_display(node_t *node)
 {
 
     if (node == NULL)
     {
-        return DATA_EMPTY_LIST;
+        return LIST_EMPTY;
     }
 
     else
@@ -55,13 +55,13 @@ DATA_STATUS linked_list_display(node_t *node)
     }
 }
 
-DATA_STATUS linked_list_delete_item(int id, node_t *node)
+LIST_STATUS linked_list_delete_item(int id, node_t *node)
 {
     node_t *prev_node = NULL;
 
     if (node == NULL)
     {
-        return DATA_EMPTY_LIST;
+        return LIST_EMPTY;
     }
     
 
@@ -89,12 +89,12 @@ DATA_STATUS linked_list_delete_item(int id, node_t *node)
     return DATA_NOT_FOUND;
 }
 
-DATA_STATUS linked_list_delete_all(node_t **node)
+LIST_STATUS linked_list_delete_all(node_t **node)
 {
 
     if (*node == NULL)
     {
-        return DATA_EMPTY_LIST;
+        return LIST_EMPTY;
     }
     
 
@@ -114,4 +114,62 @@ DATA_STATUS linked_list_delete_all(node_t **node)
     }
 
     return DATA_DELETED;
+}
+
+LIST_STATUS linked_list_get_index(node_t* node, int index, student_t* dest){
+    for (int i = 0; i < index; i++)
+    {
+        if (node->next != NULL)
+        {
+            node = node->next;
+        }
+        else {
+            return INDEX_OUT_OF_BOUNDS;
+        }
+    }
+
+    *dest = node->data;
+    return DATA_SUCCESS;
+    
+}
+
+int linked_list_get_length(node_t* node){
+    int count = 0;
+    while (node != NULL)
+    {
+        node = node->next;
+        count++;
+    }
+    return count;
+}
+
+LIST_STATUS linked_list_get_n_reverse(node_t* node, int n, student_t* dest){
+    node_t* first = node;
+    node_t* second = node;
+
+    if (node == NULL)
+    {
+        return LIST_EMPTY;
+    }
+    
+
+    for (int i = 0; i < n; i++)
+    {
+        if (node->next != NULL)
+        {
+            second = second->next;
+        }
+        else
+            return INDEX_OUT_OF_BOUNDS;
+    }
+    
+
+    while (second != NULL)
+    {
+        first = first->next;
+        second = second->next;
+    }
+    
+    *dest = first->data;
+    return DATA_SUCCESS;
 }

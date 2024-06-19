@@ -4,6 +4,7 @@
 
 student_t student1;
 student_t student2;
+student_t student3;
 node_t first_node;
 node_t* head = &first_node;
 
@@ -25,12 +26,18 @@ int main(){
     student2.height = 165;
     strcpy(student2.name, "Mohamed");
 
+    student3.id = 30;
+    student3.height = 170;
+    strcpy(student3.name, "Ali");
+
     first_node.data = student1;
 
     linked_list_append_item(&student2, head);
+    linked_list_append_item(&student3, head);
     linked_list_display(head);
 
-    
+    linked_list_get_n_reverse(head, 1, &student_input);
+    printf("%s\n",student_input.name);
 
     while (!quit)
     {
@@ -50,7 +57,7 @@ void get_command(){
     {
     case 1:
         read_student(&student_input);
-        if (linked_list_append_item(&student_input, head) == DATA_EMPTY_LIST)
+        if (linked_list_append_item(&student_input, head) == LIST_EMPTY)
         {
             printf("List is empty\n");
         }
@@ -63,7 +70,7 @@ void get_command(){
 
     case 2:
         printf("===================\n");
-        if (linked_list_display(head) == DATA_EMPTY_LIST)
+        if (linked_list_display(head) == LIST_EMPTY)
         {
             printf("List is empty.\n");
         }
@@ -81,7 +88,7 @@ void get_command(){
         else{
             printf("List is empty\n");
         }
-        break;  
+        break;
 
     case 5:
         quit = 1;
@@ -114,7 +121,7 @@ void delete_student(){
     {
         printf("Deleted successfully.\n");
     }
-    else if (status == DATA_EMPTY_LIST)
+    else if (status == LIST_EMPTY)
     {
         printf("List is empty\n");
     }
