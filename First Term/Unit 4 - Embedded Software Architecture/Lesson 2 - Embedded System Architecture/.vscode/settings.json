@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "states.h": "c"
+        "states.h": "c",
+        "us_sensor.h": "c"
     }
 }
