@@ -5,7 +5,7 @@ INC_DIR = inc
 vpath %.c $(SRC_DIR)
 vpath %.o $(OBJS_DIR)
 
-PROJECT_NAME = student-list
+PROJECT_NAME = self_driving
 CC = 
 CFLAGS = -g
 INCS = -I $(INC_DIR)
