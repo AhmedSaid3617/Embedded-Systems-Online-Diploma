@@ -7,7 +7,7 @@ vpath %.o $(OBJS_DIR)
 
 PROJECT_NAME = stm32_blink
 CC = arm-none-eabi-
-CFLAGS = -mcpu=cortex-m3 -g -O0
+CFLAGS = -mcpu=cortex-m3 -gdwarf-2 -O0
 INCS = -I $(INC_DIR)
 LIBS = 
 SRC := $(wildcard *.c) $(wildcard $(SRC_DIR)/*.c)
@@ -42,3 +42,4 @@ clean:
 
 .PHONY: rebuild
 rebuild: clean build
+
