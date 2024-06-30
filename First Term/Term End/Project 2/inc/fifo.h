@@ -6,8 +6,8 @@
 typedef struct
 {
     student_t* base;
-    unsigned char* head;
-    unsigned char* tail;
+    student_t* head;
+    student_t* tail;
     unsigned int length;
     char is_full;
 } FIFO_circular_buffer;
@@ -21,8 +21,12 @@ typedef enum {
 
 void FIFO_buffer_init(FIFO_circular_buffer* fifo_buffer, student_t* base, unsigned int length);
 
-FIFO_STATUS FIFO_enqueue(FIFO_circular_buffer* fifo_buffer, student_t item);
+FIFO_STATUS FIFO_enqueue(FIFO_circular_buffer *fifo_buffer, student_t* item);
 
 FIFO_STATUS FIFO_dequeue(FIFO_circular_buffer* fifo_buffer, student_t* destination);
+
+student_t* FIFO_search(FIFO_circular_buffer *fifo_buffer, int id);
+
+void FIFO_display_all(FIFO_circular_buffer *fifo_buffer);
 
 #endif
