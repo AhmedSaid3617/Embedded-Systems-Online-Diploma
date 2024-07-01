@@ -9,7 +9,7 @@ void FIFO_buffer_init(FIFO_circular_buffer *fifo_buffer, student_t *base, unsign
     fifo_buffer->is_full = 0;
 }
 
-FIFO_STATUS FIFO_enqueue(FIFO_circular_buffer *fifo_buffer, student_t *item)
+FIFO_status FIFO_enqueue(FIFO_circular_buffer *fifo_buffer, student_t *item)
 {
     if (fifo_buffer->base == 0)
     {
@@ -40,7 +40,7 @@ FIFO_STATUS FIFO_enqueue(FIFO_circular_buffer *fifo_buffer, student_t *item)
     return FIFO_SUCCESS;
 }
 
-FIFO_STATUS FIFO_dequeue(FIFO_circular_buffer *fifo_buffer, student_t *destination)
+FIFO_status FIFO_dequeue(FIFO_circular_buffer *fifo_buffer, student_t *destination)
 {
     if (fifo_buffer->base == 0)
     {
@@ -66,6 +66,32 @@ FIFO_STATUS FIFO_dequeue(FIFO_circular_buffer *fifo_buffer, student_t *destinati
     fifo_buffer->is_full = 0;
 
     return FIFO_SUCCESS;
+}
+
+FIFO_status FIFO_delete(FIFO_circular_buffer *fifo_buffer, int id)
+{
+    student_t *index = FIFO_search(fifo_buffer, id);
+    student_t *next_index = NULL;
+    if (index != NULL)
+    {
+        while (index != fifo_buffer->head)
+        {
+            if (index == fifo_buffer->base + fifo_buffer->length - 1)
+            {
+                next_index = fifo_buffer->base;
+            }
+            else
+            {
+                next_index = index+1;
+            }
+
+            *index = *next_index;
+            index = next_index;
+        }
+        fifo_buffer->head--;
+        return FIFO_SUCCESS;
+    }
+    return FIFO_NOT_FOUND;
 }
 
 student_t *FIFO_search(FIFO_circular_buffer *fifo_buffer, int id)
@@ -171,7 +197,7 @@ void FIFO_find_students_in_course(FIFO_circular_buffer *fifo_buffer, int course_
             index++;
         }
     }
-    
+
     if (student_count == 0)
     {
         printf("No students with this course.\n");

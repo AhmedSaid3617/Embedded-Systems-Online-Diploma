@@ -41,7 +41,7 @@ void add_student(FIFO_circular_buffer* fifo_buffer)
     printf("************************\n");
 }
 
-FIFO_STATUS update_student(FIFO_circular_buffer* fifo_buffer)
+FIFO_status update_student(FIFO_circular_buffer* fifo_buffer)
 {
     int id;
     printf("Enter student id: ");
