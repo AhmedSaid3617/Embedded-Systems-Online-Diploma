@@ -44,7 +44,7 @@ void add_student(FIFO_circular_buffer* fifo_buffer)
 void get_student_file(FIFO_circular_buffer* fifo_buffer, char* file_path){
     FILE* file_pointer = fopen("data.txt", "r");
 
-    while (fgets(string_buffer, 100, file_pointer));
+    while (fgets(string_buffer, 100, file_pointer))
     {
         sscanf(string_buffer, "%d %s %s %f %d %d %d %d", &input_student.id, &input_student.first_name,\
         &input_student.last_name, &input_student.gpa, &input_student.course_ids[0],\
