@@ -24,7 +24,8 @@ int main()
 
     FIFO_enqueue(&fifo_buffer, &student2);
 
-    get_student_file(&fifo_buffer, "data.txt");
+    //get_student_file(&fifo_buffer, "data.txt");
+    update_student(&fifo_buffer);
 
     FIFO_display_all(&fifo_buffer);
 }

@@ -8,5 +8,6 @@
 
 void add_student(FIFO_circular_buffer* fifo_buffer);
 void get_student_file(FIFO_circular_buffer* fifo_buffer, char* file_path);
+FIFO_STATUS update_student(FIFO_circular_buffer* fifo_buffer);
 
 #endif

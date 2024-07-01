@@ -1,5 +1,4 @@
 #include "fifo.h"
-#include <stdio.h>
 
 void FIFO_buffer_init(FIFO_circular_buffer *fifo_buffer, student_t *base, unsigned int length)
 {
@@ -10,7 +9,7 @@ void FIFO_buffer_init(FIFO_circular_buffer *fifo_buffer, student_t *base, unsign
     fifo_buffer->is_full = 0;
 }
 
-FIFO_STATUS FIFO_enqueue(FIFO_circular_buffer *fifo_buffer, student_t* item)
+FIFO_STATUS FIFO_enqueue(FIFO_circular_buffer *fifo_buffer, student_t *item)
 {
     if (fifo_buffer->base == 0)
     {
@@ -69,7 +68,7 @@ FIFO_STATUS FIFO_dequeue(FIFO_circular_buffer *fifo_buffer, student_t *destinati
     return FIFO_SUCCESS;
 }
 
-student_t* FIFO_search(FIFO_circular_buffer *fifo_buffer, int id)
+student_t *FIFO_search(FIFO_circular_buffer *fifo_buffer, int id)
 {
     student_t *index = fifo_buffer->tail;
     while (index != fifo_buffer->head)
@@ -93,7 +92,8 @@ student_t* FIFO_search(FIFO_circular_buffer *fifo_buffer, int id)
     return NULL;
 }
 
-void FIFO_display_all(FIFO_circular_buffer *fifo_buffer){
+void FIFO_display_all(FIFO_circular_buffer *fifo_buffer)
+{
     student_t *index = fifo_buffer->tail;
     while (index != fifo_buffer->head)
     {
@@ -109,5 +109,72 @@ void FIFO_display_all(FIFO_circular_buffer *fifo_buffer){
             index++;
         }
     }
+}
+
+void FIFO_find_name(FIFO_circular_buffer *fifo_buffer, char *name)
+{
+    student_t *index = fifo_buffer->tail;
+    int student_count = 0;
+    printf("*****************************\n");
+    while (index != fifo_buffer->head)
+    {
+        // Return address if found.
+        if (strcmp(index->first_name, name) == 0)
+        {
+            student_display(index);
+            printf("====================\n");
+            student_count++;
+        }
+        // Increment index.
+        if (index == fifo_buffer->base + fifo_buffer->length - 1)
+        {
+            index = fifo_buffer->base;
+        }
+        else
+        {
+            index++;
+        }
+    }
+    if (student_count == 0)
+    {
+        printf("No students with this name.\n");
+    }
+    printf("*****************************\n");
+}
+
+void FIFO_find_students_in_course(FIFO_circular_buffer *fifo_buffer, int course_id)
+{
+    student_t *index = fifo_buffer->tail;
+    int student_count = 0;
+    printf("*****************************\n");
+    while (index != fifo_buffer->head)
+    {
+        // Return address if found.
+        for (int i = 0; i < 4; i++)
+        {
+            if (index->course_ids[i] == course_id)
+            {
+                student_display(index);
+                printf("====================\n");
+                student_count++;
+                break;
+            }
+        }
+
+        // Increment index.
+        if (index == fifo_buffer->base + fifo_buffer->length - 1)
+        {
+            index = fifo_buffer->base;
+        }
+        else
+        {
+            index++;
+        }
+    }
     
+    if (student_count == 0)
+    {
+        printf("No students with this course.\n");
+    }
+    printf("*****************************\n");
 }

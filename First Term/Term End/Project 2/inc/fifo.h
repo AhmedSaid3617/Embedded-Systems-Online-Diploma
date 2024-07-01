@@ -1,6 +1,8 @@
 #ifndef FIFO_H
 #define FIFO_H
 
+#include <stdio.h>
+#include <string.h>
 #include "student.h"
 
 typedef struct
@@ -16,7 +18,9 @@ typedef enum {
     FIFO_SUCCESS,
     FIFO_FULL,
     FIFO_EMPTY,
-    FIFO_NULL
+    FIFO_NULL,
+    FIFO_NOT_FOUND,
+    FIFO_INVALID
 } FIFO_STATUS;
 
 void FIFO_buffer_init(FIFO_circular_buffer* fifo_buffer, student_t* base, unsigned int length);
@@ -28,5 +32,9 @@ FIFO_STATUS FIFO_dequeue(FIFO_circular_buffer* fifo_buffer, student_t* destinati
 student_t* FIFO_search(FIFO_circular_buffer *fifo_buffer, int id);
 
 void FIFO_display_all(FIFO_circular_buffer *fifo_buffer);
+
+void FIFO_find_name(FIFO_circular_buffer *fifo_buffer, char* name);
+
+void FIFO_find_students_in_course(FIFO_circular_buffer *fifo_buffer, int course_id);
 
 #endif

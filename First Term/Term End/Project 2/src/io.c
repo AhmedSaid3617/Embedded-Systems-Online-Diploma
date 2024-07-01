@@ -41,6 +41,30 @@ void add_student(FIFO_circular_buffer* fifo_buffer)
     printf("************************\n");
 }
 
+FIFO_STATUS update_student(FIFO_circular_buffer* fifo_buffer)
+{
+    int id;
+    printf("Enter student id: ");
+    scanf("%d", &id);
+    if (id == 0)
+    {
+        printf("Id cannot be zero.\n");
+        return FIFO_INVALID;
+    }
+
+    student_t* student = FIFO_search(fifo_buffer, id);
+    if (student != NULL)
+    {
+        printf("Enter new gpa: ");
+        scanf("%f", &student->gpa);
+        return FIFO_SUCCESS;
+    }
+    else {
+        printf("No student with this ID.\n");
+        return FIFO_NOT_FOUND;
+    }
+}
+
 void get_student_file(FIFO_circular_buffer* fifo_buffer, char* file_path){
     FILE* file_pointer = fopen("data.txt", "r");
 

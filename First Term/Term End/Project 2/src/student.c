@@ -12,7 +12,3 @@ void student_display(student_t* student){
     printf("\n");
 
 }
-
-void student_get_from_file(){
-    
-}
