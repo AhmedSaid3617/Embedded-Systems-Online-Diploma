@@ -204,3 +204,7 @@ void FIFO_find_students_in_course(FIFO_circular_buffer *fifo_buffer, int course_
     }
     printf("*****************************\n");
 }
+
+int FIFO_get_count(FIFO_circular_buffer *fifo_buffer){
+    return (int)(fifo_buffer->head - fifo_buffer->tail);
+}

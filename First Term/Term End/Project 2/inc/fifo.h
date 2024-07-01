@@ -39,4 +39,6 @@ void FIFO_find_students_in_course(FIFO_circular_buffer *fifo_buffer, int course_
 
 FIFO_status FIFO_delete(FIFO_circular_buffer *fifo_buffer, int id);
 
+int FIFO_get_count(FIFO_circular_buffer *fifo_buffer);
+
 #endif
