@@ -5,10 +5,14 @@ void student_display(student_t* student){
     printf("Student id: %d\n", student->id);
     printf("Student gpa: %.2f\n", student->gpa);
     printf("Student courses: ");
-    for (int i = 0; i < student->course_count; i++)
+    for (int i = 0; i < 4; i++)
     {
         printf("%d ",student->course_ids[i]);
     }
     printf("\n");
 
+}
+
+void student_get_from_file(){
+    
 }

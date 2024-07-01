@@ -7,7 +7,7 @@ vpath %.o $(OBJS_DIR)
 
 PROJECT_NAME = final_project
 CC = 
-CFLAGS = -g
+CFLAGS = -ggdb
 INCS = -I $(INC_DIR)
 LIBS = 
 SRC := $(wildcard $(SRC_DIR)/*.c)

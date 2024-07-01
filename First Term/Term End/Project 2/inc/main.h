@@ -5,7 +5,6 @@
 #include <string.h>
 #include "fifo.h"
 #include "student.h"
-
-void add_student();
+#include "io.h"
 
 #endif
